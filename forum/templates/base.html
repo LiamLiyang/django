@@ -1,0 +1,149 @@
+{% load staticfiles %}
+{#<!DOCTYPE html>#}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upper HTML Website Template</title>
+    <!-- load stylesheets -->
+    <link href="{% static "css/zui.css"%}" rel="stylesheet">
+
+<style>
+    .board-item.drag-shadow {z-index: 9999}
+</style>
+</head>
+
+<body background="{% static "img/maplestory_01.jpg" %}">
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- 导航头部 -->
+            <div class="navbar-header">
+                <!-- 移动设备上的导航切换按钮 -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-example">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- 品牌名称或logo -->
+                <a class="navbar-brand" href="#">ZUI</a>
+            </div>
+            <!-- 导航项目 -->
+            <div class="collapse navbar-collapse navbar-collapse-example ">
+                <!-- 一般导航项目 -->
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="#">项目</a></li>
+                    <li><a href="#">需求</a></li>
+                    <!-- 导航中的下拉菜单 -->
+
+                </ul>
+                <!--  右邊導航  -->
+                <div class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown" >
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理 <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">任务</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="col-lg-8">
+            <div class="panel">
+                <div class="panel-heading">
+                   標題
+                </div>
+                <div >
+                    <ol class="breadcrumb">
+                      <li><a href="your/url/"><span class="icon icon-home"></span>首頁</a></li>
+                      <li><a href="your/url/">一級</a></li>
+                      <li class="active">二級</li>
+                    </ol>
+                    <hr>
+                </div>
+
+                <div class="panel-body " style="padding: 1px">
+                        <div class="list" style="padding: 0">
+                          <!-- 條目 -->
+                          <div class="items items-hover">
+                            <div class="item">
+                              <div class="item-heading axiba">
+                                <div class="pull-right "><a href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
+                                <h4><a href="###">HTML5 发展历史</a></h4>
+                              </div>
+
+                              <div class="item-footer axiba">
+                                <a href="#" class="text-muted"><i class="icon icon-tag"></i> 類別</a> &nbsp;
+                                <a href="#" class="text-muted"><i class="icon icon-user"></i> 發起人</a> &nbsp;
+                                <span class="icon icon-history">2013-11-11 16:14:37</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <footer>
+                            <ul class="pager">
+                              <li class="previous"><a href="#">« 上一页</a></li>
+                              <li><a href="#">1</a></li>
+                              <li><a href="#">⋯</a></li>
+                              <li><a href="#">6</a></li>
+                              <li class="active"><a href="#">7</a></li>
+                              <li><a href="#">8</a></li>
+                              <li><a href="#">9</a></li>
+                              <li><a href="#">⋯</a></li>
+                              <li><a href="#">12</a></li>
+                              <li class="next"><a href="#">下一页 »</a></li>
+                            </ul>
+                          </footer>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel">
+                <div class="panel-heading">
+                    標題
+                </div>
+                <div class="panel-body">
+                    fdasdfasdfasdfasd
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    標題
+                </div>
+                <div class="panel-body">
+                        <a href="#">  <span class="label label-success">Java</span></a>
+                        <a href="#">  <span class="label label-success">Python</span></a>
+                        <a href="#">  <span class="label label-success">New</span></a>
+                        <a href="#">  <span class="label label-success">New</span></a>
+                        <a href="#">  <span class="label label-success">New</span></a>
+
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    狀況
+                </div>
+                <div class="panel-body">
+                    用戶：1
+                    发帖数：1
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script src="js/jquery.magnific-popup.min.js"></script> &lt;!&ndash; Magnific popup (http://dimsemenov.com/plugins/magnific-popup/) &ndash;&gt;        &lt;!&ndash; load JS files &ndash;&gt;-->
+
+    <script src="{% static "js/jquery.js"%}"></script>
+    <script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+    <script src="{% static "js/zui.js" %}"></script> <!-- Tether for Bootstrap (http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h) -->
+
+</body>
+</html>
