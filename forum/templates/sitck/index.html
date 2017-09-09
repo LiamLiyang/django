@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{#标题及路由#}
+{% block head_address_list %}
+    <div class="panel-heading">
+     標題
+    </div>
+    <div >
+        <ol class="breadcrumb">
+          <li><a href="your/url/"><span class="icon icon-home"></span>首頁</a></li>
+          <li><a href="your/url/">一級</a></li>
+          <li class="active">二級</li>
+        </ol>
+        <hr>
+    </div>
+    <div class="panel-body " style="padding: 1px">
+        <div class="list" style="padding: 0">
+          <!-- 條目 -->
+          <div class="items items-hover">
+            <div class="item">
+              <div class="item-heading axiba">
+                <div class="pull-right "><a href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
+                <h4><a href="###">HTML5 发展历史</a></h4>
+              </div>
+
+              <div class="item-footer axiba">
+                <a href="#" class="text-muted"><i class="icon icon-tag"></i> 類別</a> &nbsp;
+                <a href="#" class="text-muted"><i class="icon icon-user"></i> 發起人</a> &nbsp;
+                <span class="icon icon-history">2013-11-11 16:14:37</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

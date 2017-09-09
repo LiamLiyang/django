@@ -4,4 +4,8 @@ from django.views import generic
 
 
 class ForumIndexView(generic.TemplateView):
-    template_name = "base.html"
+    template_name = "sitck/index.html"
+
+
+class ForumDetailedView(generic.TemplateView):
+    template_name = "sitck/detailed.html"
