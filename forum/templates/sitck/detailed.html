@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load built_in %}
 
 #帖子及路径
 {% block head_address_list %}
 <div class="panel-heading" style="padding: 0 0">
-  <ol class="breadcrumb" style="margin-bottom: 0;padding-bottom: 0;padding-right: 0">
+  {% block path %}
+    <ol class="breadcrumb">
       <li><a href="your/url/"><span class="icon icon-home"></span>首頁</a></li>
       <li><a href="your/url/">一級</a></li>
       <li class="active">二級</li>
-  </ol>
+    </ol>
+{% endblock %}
 </div>
 <div >
 </div>
@@ -16,17 +19,26 @@
   <div class="list" style="padding: 0">
       <!-- 條目 -->
       <div class="items items-hover">
+
         <div class="item">
           <div class="item-heading axiba">
             <div class="pull-right "><a href="#" class="text-muted"><i class="icon-comments"></i> 243</a></div>
-            <h1>HTML5 发展历史</h1>
+            <h1>{{ object.title }}</h1>
           </div>
-          <div class="item-footer axiba">
-            <a href="#" class="text-muted"><i class="icon icon-tag"></i> 類別</a> &nbsp;
-            <a href="#" class="text-muted"><i class="icon icon-user"></i> 發起人</a> &nbsp;
-            <span class="icon icon-history">2013-11-11 16:14:37</span>
+          <div class="item-footer axiba comment">
+            <a href="#" class="text-muted"><i class="icon icon-tag"></i> {{ object.cfn }}</a> &nbsp;
+            <a href="#" class="text-muted"><i class="icon icon-user"></i> {{ object.user.first_name }}</a> &nbsp;
+            <span class="icon icon-history">{{ object.rectime |date:'Y/m/d ' }}</span>
           </div>
-            <hr>
+          <div class="comment"> {{ object.content }}</div>
+
+
+          {% if object.additional_content  %}
+              <div class="abstract axiba prettyprint prettyprinted">
+                <small>追加 &nbsp;·&nbsp; {{ object.last_access | time_sub }}</small>
+                <p>{{ object.additional_content }}</p>
+              </div>
+          {% endif %}
           <div> </div>
         </div>
       </div>
@@ -40,97 +52,59 @@
 <div class="panel">
     <div class="panel-heading">
         <header>
-            <div class="pull-right"><a href="#commentReplyForm2" class="btn btn-primary"><i class="icon-comment-alt"></i> 发表评论</a></div>
+            <div class="pull-right"><a href="###" class="btn btn-primary cursor"><i class="icon-comment-alt"></i> 发表评论</a></div>
             <h3>所有评论</h3>          </header>
     </div>
     <div class="panel-body">
         <div class="comments">
-
           <section class="comments-list">
-            <div class="comment">
-              <a href="###" class="avatar">
-                <i class="icon-camera-retro icon-2x"></i>
-              </a>
-              <div class="content">
-                <div class="pull-right text-muted">3 个小时前</div>
-                <div><a href="###"><strong>张士超</strong></a></div>
-                <div class="text">今天玩的真开心！~~~~~~</div>
-                <div class="actions">
-                  <a href="##">回复</a>
-                </div>
-              </div>
-              <div class="comments-list">
+            {% for i in comment_list %}
                 <div class="comment">
                   <a href="###" class="avatar">
-                    <i class="icon-user icon-2x"></i>
+                    <i class="icon-camera-retro icon-2x"></i>
                   </a>
                   <div class="content">
-                    <div class="pull-right text-muted">2 个小时前</div>
-                    <div><a href="###"><strong>Catouse</strong></a> <span class="text-muted">回复</span> <a href="###">张士超</a></div>
-                    <div class="text">你到底把我家钥匙放哪里了...</div>
+                    <div class="pull-right text-muted">{{ i.date }}</div>
+                    <div><a href="###"><strong>{{ i.user }}</strong></a></div>
+                    <div class="text">{{ i.context }}</div>
                     <div class="actions">
-                      <a href="##">回复</a>
-                      <a href="##">编辑</a>
-                      <a href="##">删除</a>
+                      <a href="##" name="{{ i.user }}" id="{{ i.index }}" class="cursor">回复</a>
                     </div>
                   </div>
                   <div class="comments-list">
-                    <div class="comment">
-                      <a href="###" class="avatar">
-                        <i class="icon-yinyang icon-2x"></i>
-                      </a>
-                      <div class="content">
-                        <div class="pull-right text-muted">1 个小时前</div>
-                        <div><a href="###"><strong>门口大爷</strong></a> <span class="text-muted">回复</span> <a href="###">Catouse</a></div>
-                        <div class="text">不在我这儿...</div>
-                        <div class="actions">
-                          <a href="##">回复</a>
+                    {% for foo in i.next %}
+                        <div class="comment">
+                          <a href="###" class="avatar cursor">
+                            <i class="icon-user icon-2x"></i>
+                          </a>
+                          <div class="content">
+                            <div class="pull-right text-muted">{{ foo.date }}</div>
+                            <div><a  href="###"><strong>{{ foo.user }}</strong></a> <span  class="text-muted">回复</span> <a href="###">{{ foo.to }}</a></div>
+                            <div class="text">{{ foo.context }}</div>
+                            <div class="actions">
+                              <a class="cursor" id="{{ i.index }}" name="{{ foo.user }}" href="##">回复</a>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="comment">
-                      <a href="###" class="avatar">
-                        <i class="icon-cube-alt icon-2x"></i>
-                      </a>
-                      <div class="content">
-                        <div class="pull-right text-muted">1 个小时前</div>
-                        <div><a href="###"><strong>队长</strong></a> <span class="text-muted">回复</span> <a href="###">Catouse</a></div>
-                        <div class="text">也不在我这儿...</div>
-                        <div class="actions">
-                          <a href="##">回复</a>
-                        </div>
-                      </div>
-                    </div>
+                    {% endfor %}
                   </div>
                 </div>
-                <div class="comment">
-                  <a href="###" class="avatar">
-                    <i class="icon-heart-empty icon-2x"></i>
-                  </a>
-                  <div class="content">
-                    <div class="pull-right text-muted">30 分钟前</div>
-                    <div><a href="###"><strong>华师大第一美女</strong></a> <span class="text-muted">回复</span> <a href="###">张士超</a></div>
-                    <div class="text">很开心~~~</div>
-                    <div class="actions">
-                      <a href="##">回复</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </section>
           <footer>
             <div class="reply-form" id="commentReplyForm2">
               <a href="###" class="avatar"><i class="icon-user icon-2x"></i></a>
-              <form class="form">
+              <form class="form" method="post">
+                  {% csrf_token %}
                 <div class="form-group">
-                  <textarea class="form-control new-comment-text" rows="2" placeholder="撰写评论..."></textarea>
+                  <textarea class="form-control new-comment-text" name="Reply"   rows="2" placeholder="撰写评论..."></textarea>
                 </div>
-                <div class="pull-right"><a href="#commentReplyForm2" class="btn btn-primary"><i class="icon-comment-alt"></i> 回复</a></div>
+                <div class="pull-right"><button type="submit" href="#commentReplyForm2"  class="btn btn-primary commentReplyForm2"><i class="icon-comment-alt"></i> 回复</button></div>
               </form>
             </div>
           </footer>
         </div>
     </div>
 </div>
+
 {% endblock %}

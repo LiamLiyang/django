@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* CSS Document */
+.menu{left: 0; display: none;}
+.ie8-load{ display: block;}
+.prompt_f{ background: url(../images/prompt_f.png); width:36px; height: 44px; left: 0; position: fixed; top: 50%; margin-top: -22px; cursor: pointer; display:none; z-index: 15;}
+.section4 .contentR .news_list .news_show ul li:hover{ background:#D5D7EC;}
+#bonfire-pageloader{ display:none !important}
+.index_text{ margin-left:-500px; margin-top:-500px}

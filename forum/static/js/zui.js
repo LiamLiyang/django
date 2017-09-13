@@ -5641,3 +5641,33 @@
     });
 }(jQuery));
 
+//评论功能
+$(function($){
+
+    // 评论功能下点击回复后的触发事件
+    $(document).on("click",".cursor",function(){
+        //清空文本框
+        $('[name="Reply"]').val("")
+        // 是否是二级评论
+        if(this.name){
+            // 将回复人的名字写入文本域
+            $('[name="Reply"]').val("@" + this.name + ' ');
+            //设置回复索引
+            $('[name="Reply"]').attr("id",this.id);
+        }
+        // 光标跳入文本域
+        $('[name="Reply"]').focus();
+    });
+
+
+    $(document).on("click",".commentReplyForm2",function(){
+        var this_id = $("[name='Reply']").attr("id");
+        var this_val = $("[name='Reply']").val();
+
+        $.post("/detailed/2/", {'id':this_id, 'val':this_val, 'user':'liam'},function(ret){
+        });
+        history.go(0)
+    })
+}(jQuery));
+
+

@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'forum.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db_sitck',
+        'USER': 'cindy',
+        'PASSWORD': '123',
+        'HOST': '10.132.37.36',
+        'PORT': 3306,
     }
 }
 
@@ -105,4 +109,9 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
+
 )
+# STATIC_ROOT = (
+#     os.path.join(BASE_DIR, 'static').replace('\\','/')
+#
+# )

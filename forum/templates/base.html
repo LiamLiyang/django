@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load built_in %}
+
 {#<!DOCTYPE html>#}
 <html lang="en">
 <head>
@@ -30,7 +32,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- 品牌名称或logo -->
-                <a class="navbar-brand" href="{% url 'home' %}">ZUI</a>
+                <a class="navbar-brand" href="{% url 'app:home' %}">ZUI</a>
             </div>
             <!-- 导航项目 -->
             <div class="collapse navbar-collapse navbar-collapse-example ">
@@ -78,6 +80,7 @@
             <div class="panel">
                 <div class="panel-heading">
                     标签云
+
                 </div>
                 <div class="panel-body">
 {#                        <a href="#">  <span class="label label-success">Java</span></a>#}
@@ -96,30 +99,24 @@
                     状况
                 </div>
                 <div class="panel-body">
-                    用戶：1
-                    发帖数：1
+                    {% get_user_post as post %}
+                    用戶：{{ post.user_number }}
+                    发帖数：{{ post.post_number }}
                 </div>
             </div>
         </div>
     </div>
     <!--<script src="js/jquery.magnific-popup.min.js"></script> &lt;!&ndash; Magnific popup (http://dimsemenov.com/plugins/magnific-popup/) &ndash;&gt;        &lt;!&ndash; load JS files &ndash;&gt;-->
-
+    <script src="{% static "js/csrf.js"%}"></script>
     <script src="{% static "js/jquery.js"%}"></script>
     <script src="{% static "js/jquery-3.2.1.min.js" %}"></script>
     <script src="{% static "js/zui.js" %}"></script> <!-- Tether for Bootstrap (http://stackoverflow.com/questions/34567939/how-to-fix-the-error-error-bootstrap-tooltips-require-tether-http-github-h) -->
     <script src="{% static "js/jquery.svg3dtagcloud.min.js" %}"></script> <!-- 標籤云 -->
     <script>
         $( document ).ready( function() {
-            var entries = [
-                { label: 'Back to top', url: '#', target: '_top' },
-                { label: 'Bootstrap', url: '#', target: '_top' },
-                { label: 'Carousel', url: '#', target: '_top' },
-                { label: 'Countdown', url: '#', target: '_top' },
-                { label: 'Dropdown Menu', url: '#', target: '_top' }
-            ];
+            var entries = {%  get_snc  %};
 
             var settings = {
-
                 entries: entries,
                 width: '100%',
                 height: '100%',
@@ -144,8 +141,11 @@
 
             //var svg3DTagCloud = new SVG3DTagCloud( document.getElementById( 'holder'  ), settings );
             $( '#tag-cloud' ).svg3DTagCloud( settings );
-
+            $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}' }
+            });
 		} );
     </script>
+
 </body>
 </html>

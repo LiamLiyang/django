@@ -1,0 +1,48 @@
+﻿{% load staticfiles %}
+<html><head>
+{#<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />#}
+{#<meta name="keywords" content="" />#}
+{#<meta name="description" content="" />#}
+{#<meta charset="utf-8">#}
+<title>404</title>
+{#<meta name="keywords" content="smart3d, 手机网站特效, css3动画, 网页特效" />#}
+<link rel="stylesheet" type="text/css" href={% static "style/lz.shuwon.css"%}>
+<link rel="stylesheet" type="text/css" href={% static "style/swiper.min.css" %}>
+<style>
+	html,body{ width: 100%; height: 100%;}
+</style>
+<script src={% static "js/jquery.js" %}></script>
+<script src={% static "js/jquery.smart3d.js"%}></script>
+<script type="text/javascript">
+    $(function() {
+		$('#boxUl').smart3d({
+			invertHorizontal: true,
+			invertVertical: true
+		});
+    });
+
+
+</script>
+<style>
+	html,body{ overflow: hidden;}
+	.boxs{ width: 100%; height: 100%; background: #0cc;}
+</style>
+
+	</head>
+
+	<body>
+
+
+	<ul id="boxUl" style="background:url({% static "img/" %}) center center no-repeat; background-size: cover;">
+		<li class="c"></li>
+		<li class="b"></li>
+		<li></li>
+	</ul>
+	<div class="boxs"></div>
+	<div class="boxs"></div>
+	<div class="boxs"></div>
+	</body>
+</html>
+
+
+
