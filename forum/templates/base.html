@@ -73,7 +73,16 @@
                     最新帖子
                 </div>
                 <div class="panel-body">
+                    {% get_new_five  as five %}
+                    {% for foo in five %}
 
+                        <div style="border-bottom: 1px solid #ddd;">
+                            <a href="{% url 'app:detailed' foo.id %}" class="" >
+                                <h4 class="list-group-item-heading">{{ foo.title }}</h4>
+                                <p class="list-group-item-text text-muted">{{ foo.content }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 

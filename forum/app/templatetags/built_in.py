@@ -15,6 +15,14 @@ def get_snc():
         data = [{"label": "暂时无分类", "url": '#', "target": '_top'}, {"label": "请添加", "url": '#', "target": '_top'}]
     return data
 
+@register.assignment_tag
+def get_new_five():
+    """
+    最新五条
+    :return:
+    """
+    return models.Sitck.objects.order_by('-rectime')[0:5]
+
 
 @register.assignment_tag
 def get_user_post():
@@ -44,7 +52,6 @@ def time_sub(time):
     return "{}{}{}".format(str_int(data.days) + '天' if data.days else '',
                            str_int(data.seconds/3600) + '小时' if data.seconds/3600 else '',
                            str_int(data.seconds%3600/60) + "分钟前")
-
 
 def str_int(num):
     """

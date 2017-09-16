@@ -5651,7 +5651,7 @@ $(function($){
         // 是否是二级评论
         if(this.name){
             // 将回复人的名字写入文本域
-            $('[name="Reply"]').val("@" + this.name + ' ');
+            $('[name="Reply"]').val("@" + this.name + '\t');
             //设置回复索引
             $('[name="Reply"]').attr("id",this.id);
         }
@@ -5659,15 +5659,43 @@ $(function($){
         $('[name="Reply"]').focus();
     });
 
+    // 判断字符是否只包含空格
+    function str_count(str){
+        if(str.split(' ').length-1 == str.length){
+            return false
+        }else{
+            return true
+        }
+    }
 
+    //回复
     $(document).on("click",".commentReplyForm2",function(){
+        // 获取 评论条数的索引
         var this_id = $("[name='Reply']").attr("id");
+        //获取评论的值
         var this_val = $("[name='Reply']").val();
+        if(this_val != '' && str_count(this_val)){
+            //提交数据
+            if(this_val.indexOf('\t') >= 0){
+                if(this_val.split('\t')[1] != '' && str_count(this_val.split('\t')[1])){
+                    $.post(this.url, {'id':this_id, 'val':this_val, 'user':'liam'},function(ret){
+                        window.location.reload(this.url);
+                    });
+                }else{
+                    alert("输入你想说的话吧");
+                }
+            }else{
+                $.post(this.url, {'id':this_id, 'val':this_val, 'user':'liam'},function(ret){
+                     window.location.reload(this.url);
+                    });
+            }
+        }else{
+            alert("输入你想说的话吧");
+        }
 
-        $.post("/detailed/2/", {'id':this_id, 'val':this_val, 'user':'liam'},function(ret){
-        });
-        history.go(0)
     })
+
+
 }(jQuery));
 
 
