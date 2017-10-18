@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Python安裝Oracle]]></title>
+    <url>%2F2017%2F10%2F18%2FPython%E5%AE%89%E8%A3%9DOracle%2F</url>
+    <content type="text"><![CDATA[安裝oracle并使用 Navicat 鏈接oracle 安裝oracle客戶端下載及解壓下載三個安裝包，解壓到E://Oracle/instantclient_12_1中(貌似直接解壓到Oracle就可以了，Oracle目錄需要新建)instantclient-basic-windows.x64-12.1.0.2.0.zipinstantclient-sdk-windows.x64-12.1.0.2.0.zipinstantclient-sqlplus-windows.x64-12.1.0.2.0.zip 添加環境變量及配置文件選擇在上方目錄基礎下新建E://Oracle/network/admin 設置環境變量新增系統環境變量NLS_LANG = AMERICAN_AMERICA.ZHS16GBKTNS_ADMIN = E:\Oracle\network\adminLD_LIBRARY_PATH = E:\Oracle\instantclient_12_1SQLPATH = E:\Oracle\instantclient_12_1追加系統環境變量Path变量结尾加上E:\Oracle\instantclient_12_1 配置文件編寫在admin 目錄下新建一個 tnsnames.ora 的文件編譯文件,按下方格式添加數據庫連接信息（按格式追加就行）123456789NSD01 = #連接名 (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = 10.132.48.70)(PORT = 1903)) ) (CONNECT_DATA = (SERVICE_NAME = nsd01) ) ) python 安裝oraclewindows + R cmd 直接pip install cx-Oracle就好了 不會請百度pip list 查看是否安裝12345C:\Users\Administrator&gt;pip listcassandra-driver (3.11.0)certifi (2017.7.27.1)chardet (3.0.4)cx-Oracle (6.0.2) 測試是否有用cmd 命令下 python123456789101112C:\Users\Administrator&gt;pythonPython 3.4.3 (v3.4.3:9b73f1c3e601, Feb 24 2015, 22:43:06) [MSC v.1600 32 bit (Intel)] on win32Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.&gt;&gt;&gt; import cx_oracleTraceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;ImportError: No module named &apos;cx_oracle&apos;&gt;&gt;&gt; import cx_Oracle&gt;&gt;&gt; db = cx_Oracle.connect(&apos;ipcbuuser/ipcbutest@10.142.149.5:1903/SEBUODB&apos;)&gt;&gt;&gt; print (db.version)&gt;&gt;&gt; Navicat連接oracle安裝完成后直接填寫好數據庫信息點擊連接測試,正常情況下應該是連接成功出現上方問題是應為oci文件不版本不符，根據網上的解決方案是去安裝oracle的文件夾下找到oci文件替換然後就出現這個問題，貌似是這個軟件不支持 64位的oracle oci文件 ，所以要去官網下載一個該版本的32位的instantclient-basic-nt-12.1.0.2.0.zip解壓到任意位置將 軟件的oci文件讀取指向該文件夾就好了]]></content>
+      <categories>
+        <category>工作問題</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>oracle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[自定義異常]]></title>
+    <url>%2F2017%2F06%2F12%2F%E8%87%AA%E5%AE%9A%E7%BE%A9%E7%95%B0%E5%B8%B8%2F</url>
+    <content type="text"><![CDATA[自定義異常 異常try except通常異常使用是123456try: int('sss')except Exception as e: print('這是一個簡單的異常,異常為:'+str(e))output:這是一個簡單的異常,異常為:invalid literal for int() with base 10: 'sss' finally升級版123456789try: int('sss')except Exception as e: print('這是一個簡單的異常,異常為:'+str(e))finally: print('這裡是最后')output:這是一個簡單的異常,異常為:invalid literal for int() with base 10: 'sss'output:這裡是最后 try else沒有發生異常時觸發123456789101112try: int('1')except Exception as e: print('這是一個簡單的異常,異常為:'+str(e))else: print('沒有異常')finally: print('這裡是最后') output：1output：沒有異常output：這裡是最后 raise返回一個異常123456789101112try: if 1: raise EOFError()except Exception as e: print('這是一個簡單的異常,異常為:'+str(e))else: print('沒有異常')finally: print('這裡是最后') output：這是一個簡單的異常,異常為:output：這裡是最后 自定義異常類創建異常類12345678#繼承Exception類class WeError(Exception): """ 自定義異常 """ def __init__(self,data): Exception.__init__(self,data) #初始化父類 self.data = data 調用定義的異常類12345678910try: if 1: raise WeError('出錯了')except Exception as e: print(str(e))finally: print('結束了') output:出錯了output:結束了]]></content>
+      <categories>
+        <category>工作問題</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[获取本月日期]]></title>
+    <url>%2F2017%2F06%2F09%2F%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[获取本月的所有日期 获取本月日期获取本月一号的时间12345import datetimetoDay = datetime.date.today() #获取当前日期day = toDay.replace(year=2017,month=1,day=1) # 获取2017-1-1thisDay = toDay.replace(day=1) # 获取本月一号 获取本月月底日期12date = datetime.date.today().replace(month=toDay.month+1,day=1) #下個月一號lastDay = date-datetime.timedelta(1) # 下個月一號 減一天 日期列表1234567891011toDay = dt.date.today() #獲取日期if toDay.month &lt; 12: #如果當前月份等於 12 則需要將年加一 monthLastDay = toDay.replace(month=toDay.month+1,day=1) - dt.timedelta(1) # 獲取下個月減一天else: monthLastDay = toDay.replace(year=toDay.year+1,month=1,day=1) -dt.timedelta(1) # 獲取明年一月一號 減一天thisMonth = toDay.replace(day=1) #獲取本月一號dayList = []for i in range(monthLastDay.day): if thisMonth &lt;= monthLastDay: dayList.append(thisMonth) thisMonth += dt.timedelta(1)]]></content>
+      <categories>
+        <category>工作問題</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[跨域問題解決]]></title>
+    <url>%2F2017%2F06%2F07%2F%E8%B7%A8%E5%9F%9F%E5%95%8F%E9%A1%8C%E8%A7%A3%E6%B1%BA%2F</url>
+    <content type="text"><![CDATA[今天前后台数据对接的时候，使用put方法是出现了跨域的错误，忙活了好一阵 解决跨域时会先发送一个options请求解决方案安装django-cors-header1pip install django-cors-header 配置settin.py 文件123456789101112131415161718192021222324252627282930313233343536373839404142INSTALLED_APPS = [ ... 'corsheaders'， ... ] MIDDLEWARE_CLASSES = ( ... 'corsheaders.middleware.CorsMiddleware', 'django.middleware.common.CommonMiddleware', # 注意顺序 ...)#跨域增加忽略CORS_ALLOW_CREDENTIALS = TrueCORS_ORIGIN_ALLOW_ALL = TrueCORS_ORIGIN_WHITELIST = ( '*')CORS_ALLOW_METHODS = ( 'DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT', 'VIEW',)CORS_ALLOW_HEADERS = ( 'XMLHttpRequest', 'X_FILENAME', 'accept-encoding', 'authorization', 'content-type', 'dnt', 'origin', 'user-agent', 'x-csrftoken', 'x-requested-with', 'Pragma',) 其他方式使用JSONP使用Ajax获取json数据时，存在跨域的限制。不过，在Web页面上调用js的script脚本文件时却不受跨域的影响，JSONP就是利用这个来实现跨域的传输。因此，我们需要将Ajax调用中的dataType从JSON改为JSONP（相应的API也需要支持JSONP）格式。JSONP只能用于GET请求。 直接修改Django中的views.py文件修改views.py中对应API的实现函数，允许其他域通过Ajax请求数据：1234567def myview(_request): response = HttpResponse(json.dumps(&#123;“key”: “value”, “key2”: “value”&#125;)) response[“Access-Control-Allow-Origin”] = “*” response[“Access-Control-Allow-Methods”] = “POST, GET, OPTIONS” response[“Access-Control-Max-Age”] = “1000” response[“Access-Control-Allow-Headers”] = “*” return response 來源: 博客]]></content>
+      <categories>
+        <category>工作問題</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>django</tag>
+        <tag>restful</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello Hexo]]></title>
+    <url>%2F2017%2F06%2F06%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[新建一个Hexo next 样式的博客http://tool.lu/http://tool.lu/favicon/ 添加标签页前面通过修改next主题下的_config.yml文件中的menu选项，可以在主页面的菜单栏添加标签选项，但是此时点击标签，跳转的页面会显示page not found。添加标签页面的具体方法是：1$hexo new page tags 添加文章打開 Git Bash，進入blog 所在文件夾12$hexo new [时间处理] #新建名為`時間處理`的文章INFO Created: D:\Program Files\blog\source\_posts\时间处理.md #反饋信息文章目錄]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>node.js</tag>
+        <tag>hexo</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+</search>
