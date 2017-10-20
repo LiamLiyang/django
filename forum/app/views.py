@@ -21,10 +21,11 @@ class ForumDetailedView(generic.DetailView):
     template_name = "sitck/detailed.html"
     model = models.Sitck
 
-
-    def get_object(self, queryset=None):
-        post = super(ForumDetailedView, self).get_objects(queryset=None)
-        return post
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['pk'])
+        get_object_or_404(self.model, pk=self.kwargs['pk'])
+        self.add_access_number(request, self.kwargs['pk'])
+        return super(ForumDetailedView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ForumDetailedView, self).get_context_data(**kwargs)
@@ -57,12 +58,18 @@ class ForumDetailedView(generic.DetailView):
                 mode_data.update(comment_body=data)
         return HttpResponseRedirect(reverse('app:detailed', kwargs={'pk': self.kwargs['pk']}))
 
-
-
-
-
-
-
+    def add_access_number(self, request, sk_id):
+        """
+        訪問記錄及訪問次數
+        :param request:
+        :param sk_id:
+        :return:
+        """
+        ip = request.META["HTTP_HOST"] if request.META["HTTP_HOST"] else request.META["REMOTE_ADDR"]
+        last_record = models.Access_Record.objects.filter(user_ip=ip, sitckid=sk_id).order_by('-access_time')
+        if not last_record or last_record[0].end_time.replace(tzinfo=None) < datetime.datetime.now():
+            models.Access_Record.objects.create(user_ip=ip, user_name='liam', sitckid=sk_id)
+            self.model.objects.get(id=sk_id).add_access()
 
 
 class SortdView(generic.ListView):
